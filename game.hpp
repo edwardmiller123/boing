@@ -10,6 +10,7 @@ class Game
 private:
   sf::RenderWindow window;
   sf::Event event;
+  sf::View view;
 
 public:
   bool gameRunning;
@@ -33,6 +34,9 @@ public:
     };
     level.setTexture(levelTexture);
     player.initPlayer({91, 150, 255, 243}, {479, 150, 255, 243}, {851, 150, 255, 243}, {1229, 150, 255, 243}, "assets/boingo.png");
+    view.setSize(sf::Vector2f(800.f, 800.f));
+    window.setView(view);
+
   }
 
   // Game logic
@@ -44,6 +48,7 @@ public:
   // Handles game logic.
   void update()
   {
+    view.setCenter(player.playerSprite.getPosition());
     pollEvents();
   }
   // Handles whats shown on screen.
