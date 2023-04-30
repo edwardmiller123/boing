@@ -5,7 +5,7 @@ class Player
 {
 private:
   sf::Texture playerTexture;
-  sf::Rect<int> frame1, frame2, frame3, frame4;
+  std::vector<sf::Rect<int>> frames;
   std::string texturePath;
 
 public:
@@ -13,12 +13,9 @@ public:
   sf::Vector2f currentPosition;
   int currentFrame;
 
-  int initPlayer(sf::Rect<int> newFrame1, sf::Rect<int> newFrame2, sf::Rect<int> newFrame3, sf::Rect<int> newFrame4, std::string newTexturePath)
+  int initPlayer(std::vector<sf::Rect<int>> newFrames, std::string newTexturePath)
   {
-    frame1 = newFrame1;
-    frame2 = newFrame2;
-    frame3 = newFrame3;
-    frame4 = newFrame4;
+    frames = newFrames;
     texturePath = newTexturePath;
     if (!playerTexture.loadFromFile(texturePath))
     {
@@ -26,8 +23,9 @@ public:
       return 0;
     };
     playerSprite.setTexture(playerTexture);
+
     // Sets starting frame
-    playerSprite.setTextureRect(frame1);
+    playerSprite.setTextureRect(frames[0]);
     playerSprite.setScale(sf::Vector2f(0.125f, 0.125f));
     playerSprite.setPosition(sf::Vector2f(320.f, 700.f));
   }

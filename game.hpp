@@ -10,7 +10,6 @@ class Game
 private:
   sf::RenderWindow window;
   sf::Event event;
-  sf::View view;
   Level currentLevel;
 public:
   bool gameRunning;
@@ -24,28 +23,27 @@ public:
     // This will live here for now but needs to move once the menu
     // has been implemented.
     currentLevel.initLevel("assets/level.png", "assets/boingo.png");
-    view.setSize(sf::Vector2f(1076.f, 600.f));
   }
 
-  // Game logic
+  // Runs game
   void run()
   {
     update();
     render();
   }
+
   // Handles game logic.
   void update()
   {
-    currentLevel.player.updatePosition(window);
+    currentLevel.updateLevel(window);
     pollEvents();
   }
+  
   // Handles whats shown on screen.
   void render()
   {
     window.clear();
-    updateView();
-    window.draw(currentLevel.background);
-    window.draw(currentLevel.player.playerSprite);
+    currentLevel.renderLevel(window);
     window.display();
   }
 
@@ -64,10 +62,5 @@ public:
         break;
       }
     }
-  }
-
-  sf::Vector2f updateView() {
-    window.setView(view);
-    view.setCenter(currentLevel.player.currentPosition);
   }
 };
