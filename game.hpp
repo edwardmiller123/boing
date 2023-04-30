@@ -24,7 +24,7 @@ public:
     // This will live here for now but needs to move once the menu
     // has been implemented.
     currentLevel.initLevel("assets/level.png", "assets/boingo.png");
-    view.setSize(sf::Vector2f(800.f, 800.f));
+    view.setSize(sf::Vector2f(1076.f, 600.f));
     window.setView(view);
   }
 
@@ -37,7 +37,7 @@ public:
   // Handles game logic.
   void update()
   {
-    view.setCenter(currentLevel.player.playerSprite.getPosition());
+    currentLevel.player.updatePosition(window);
     pollEvents();
   }
   // Handles whats shown on screen.
@@ -46,6 +46,7 @@ public:
     window.clear();
     window.draw(currentLevel.background);
     window.draw(currentLevel.player.playerSprite);
+    updateView();
     window.display();
   }
 
@@ -64,5 +65,9 @@ public:
         break;
       }
     }
+  }
+
+  sf::Vector2f updateView() {
+    view.setCenter(currentLevel.player.currentPosition);
   }
 };
