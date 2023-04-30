@@ -25,7 +25,6 @@ public:
     // has been implemented.
     currentLevel.initLevel("assets/level.png", "assets/boingo.png");
     view.setSize(sf::Vector2f(1076.f, 600.f));
-    window.setView(view);
   }
 
   // Game logic
@@ -44,9 +43,9 @@ public:
   void render()
   {
     window.clear();
+    updateView();
     window.draw(currentLevel.background);
     window.draw(currentLevel.player.playerSprite);
-    updateView();
     window.display();
   }
 
@@ -68,6 +67,7 @@ public:
   }
 
   sf::Vector2f updateView() {
+    window.setView(view);
     view.setCenter(currentLevel.player.currentPosition);
   }
 };

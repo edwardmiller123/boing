@@ -10,6 +10,8 @@ private:
 
 public:
   sf::Sprite playerSprite;
+  sf::Vector2f currentPosition;
+  int currentFrame;
 
   int initPlayer(sf::Rect<int> newFrame1, sf::Rect<int> newFrame2, sf::Rect<int> newFrame3, sf::Rect<int> newFrame4, std::string newTexturePath)
   {
@@ -28,6 +30,10 @@ public:
     playerSprite.setTextureRect(frame1);
     playerSprite.setScale(sf::Vector2f(0.125f, 0.125f));
     playerSprite.setPosition(sf::Vector2f(320.f, 700.f));
+  }
+
+  void updatePosition(sf::RenderWindow &window) {
+    currentPosition = playerSprite.getPosition();
   }
 
   void animate()
