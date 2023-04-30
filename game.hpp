@@ -3,7 +3,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "player.hpp"
+#include "level.hpp"
 
 class Game
 {
@@ -11,32 +11,21 @@ private:
   sf::RenderWindow window;
   sf::Event event;
   sf::View view;
-
+  Level currentLevel;
 public:
   bool gameRunning;
-  sf::Sprite level;
-  sf::Texture levelTexture;
-  Player player;
 
   // Initialisation
   int initGame()
   {
     gameRunning = true;
     window.create(sf::VideoMode(1600, 800), "Boing!");
-    initLevel();
-  }
 
-  int initLevel() {
-    if (!levelTexture.loadFromFile("assets/level.png"))
-    {
-      std::cout << "Level texture didnt load";
-      return 0;
-    };
-    level.setTexture(levelTexture);
-    player.initPlayer({91, 150, 255, 243}, {479, 150, 255, 243}, {851, 150, 255, 243}, {1229, 150, 255, 243}, "assets/boingo.png");
+    // This will live here for now but needs to move once the menu
+    // has been implemented.
+    currentLevel.initLevel("assets/level.png", "assets/boingo.png");
     view.setSize(sf::Vector2f(800.f, 800.f));
     window.setView(view);
-
   }
 
   // Game logic
@@ -48,15 +37,15 @@ public:
   // Handles game logic.
   void update()
   {
-    view.setCenter(player.playerSprite.getPosition());
+    view.setCenter(currentLevel.player.playerSprite.getPosition());
     pollEvents();
   }
   // Handles whats shown on screen.
   void render()
   {
     window.clear();
-    window.draw(level);
-    window.draw(player.playerSprite);
+    window.draw(currentLevel.background);
+    window.draw(currentLevel.player.playerSprite);
     window.display();
   }
 
