@@ -31,6 +31,7 @@ public:
   {
     updateView(window);
     window.draw(background);
+    player.animate();
     window.draw(player.playerSprite);
   }
 
@@ -40,6 +41,7 @@ public:
     player.updatePosition(window);
   }
 
+  // Sets whats visible in the window
   sf::Vector2f updateView(sf::RenderWindow &window)
   {
     window.setView(view);
