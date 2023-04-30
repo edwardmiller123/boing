@@ -30,7 +30,7 @@ public:
     playerSprite.setTextureRect(frames[0]);
     currentFrame = 0;
     framesAscending = true;
-    playerSprite.setScale(sf::Vector2f(0.125f, 0.125f));
+    playerSprite.setScale(sf::Vector2f(0.25f, 0.25f));
     playerSprite.setPosition(sf::Vector2f(320.f, 700.f));
   }
 
@@ -41,7 +41,7 @@ public:
 
   void animate()
   {
-    if (animationClock.getElapsedTime() > sf::milliseconds(50))
+    if (animationClock.getElapsedTime() > sf::milliseconds(62.5))
     {
       animationClock.restart();
       switch (framesAscending)
