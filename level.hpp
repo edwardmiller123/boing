@@ -5,6 +5,7 @@ class Level
 private:
   std::string backgroundTexturePath, playerTexturePath;
   sf::View view;
+  sf::Vector2f viewCenter;
 
 public:
   sf::Sprite background;
@@ -26,7 +27,7 @@ public:
     view.setSize(sf::Vector2f(1076.f, 600.f));
   }
 
-  // Handles whats displayed for the level
+  // Handles whats displayed for the level.
   void renderLevel(sf::RenderWindow &window)
   {
     updateView(window);
@@ -35,16 +36,18 @@ public:
     window.draw(player.playerSprite);
   }
 
-  // Handles game logic for the level
+  // Handles game logic for the level.
   void updateLevel(sf::RenderWindow &window)
   {
     player.updatePosition(window);
   }
 
-  // Sets whats visible in the window
+  // Sets whats visible in the window.
   sf::Vector2f updateView(sf::RenderWindow &window)
   {
     window.setView(view);
-    view.setCenter(player.currentPosition);
+    // Slightly offsets the player from the screen center.
+    viewCenter = sf::Vector2f(player.currentPosition.x + 250, player.currentPosition.y);
+    view.setCenter(viewCenter);
   }
 };
