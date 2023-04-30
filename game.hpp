@@ -22,7 +22,7 @@ public:
 
     // This will live here for now but needs to move once the menu
     // has been implemented.
-    currentLevel.initLevel("assets/backgroundL1.png", "assets/boingo.png");
+    currentLevel.initLevel("assets/backgroundL1.png", "assets/boingo.png", "assets/floorL1.png");
   }
 
   // Runs game

@@ -3,26 +3,32 @@
 class Level
 {
 private:
-  std::string backgroundTexturePath, playerTexturePath;
   sf::View view;
   sf::Vector2f viewCenter;
 
 public:
-  sf::Sprite background;
-  sf::Texture backgroundTexture;
+  sf::Sprite background, floor, course;
+  sf::Texture backgroundTexture, floorTexture, courseTexture;
   Player player;
 
-  int initLevel(std::string newBackgroundTexturePath, std::string newPlayerTexturePath)
+  int initLevel(std::string backgroundTexturePath, std::string playerTexturePath, std::string floorTexturePath)
   {
-    backgroundTexturePath = newBackgroundTexturePath;
-    playerTexturePath = newPlayerTexturePath;
 
     if (!backgroundTexture.loadFromFile(backgroundTexturePath))
     {
-      std::cout << "Level texture didnt load";
+      std::cout << "Background texture didnt load";
       return 0;
     };
     background.setTexture(backgroundTexture);
+
+    if (!floorTexture.loadFromFile(floorTexturePath))
+    {
+      std::cout << "Floor texture didnt load";
+      return 0;
+    };
+    floor.setTexture(floorTexture);
+    floor.setPosition(sf::Vector2f(0.f, 875.f));
+
     player.initPlayer({{91, 150, 255, 243}, {479, 150, 255, 243}, {851, 150, 255, 243}, {1229, 150, 255, 243}}, playerTexturePath);
     view.setSize(sf::Vector2f(750.f, 350.f));
   }
@@ -32,6 +38,7 @@ public:
   {
     updateView(window);
     window.draw(background);
+    window.draw(floor);
     player.animate();
     window.draw(player.playerSprite);
   }
