@@ -24,7 +24,7 @@ public:
     };
     background.setTexture(backgroundTexture);
     player.initPlayer({{91, 150, 255, 243}, {479, 150, 255, 243}, {851, 150, 255, 243}, {1229, 150, 255, 243}}, playerTexturePath);
-    view.setSize(sf::Vector2f(1076.f, 600.f));
+    view.setSize(sf::Vector2f(750.f, 350.f));
   }
 
   // Handles whats displayed for the level.
@@ -47,7 +47,7 @@ public:
   {
     window.setView(view);
     // Slightly offsets the player from the screen center.
-    viewCenter = sf::Vector2f(player.currentPosition.x + 250, player.currentPosition.y);
+    viewCenter = sf::Vector2f(player.currentPosition.x + 200, player.currentPosition.y - 50);
     view.setCenter(viewCenter);
   }
 };

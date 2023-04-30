@@ -30,8 +30,8 @@ public:
     playerSprite.setTextureRect(frames[0]);
     currentFrame = 0;
     framesAscending = true;
-    playerSprite.setScale(sf::Vector2f(0.25f, 0.25f));
-    playerSprite.setPosition(sf::Vector2f(320.f, 700.f));
+    playerSprite.setScale(sf::Vector2f(0.125f, 0.125f));
+    playerSprite.setPosition(sf::Vector2f(320.f, 845.f));
   }
 
   void updatePosition(sf::RenderWindow &window)
