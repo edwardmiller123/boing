@@ -20,6 +20,7 @@ public:
   {
     gameRunning = true;
     window.create(sf::VideoMode(1600, 800), "Boing!");
+    window.setKeyRepeatEnabled(false);
 
     // This will live here for now but needs to move once the menu
     // has been implemented.

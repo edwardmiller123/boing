@@ -9,7 +9,7 @@ private:
   std::string texturePath;
   sf::Clock animationClock;
   float velocityY = 0;
-  float gravity = 0.25;
+  float gravity = 0.3;
 
 public:
   sf::Sprite playerSprite;
@@ -88,6 +88,10 @@ public:
 
   void jump()
   {
-    velocityY = -6;
+    // Prevents double jumping.
+    if (velocityY == 0)
+    {
+      velocityY = -6;
+    }
   }
 };
