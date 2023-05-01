@@ -11,6 +11,7 @@ private:
   sf::RenderWindow window;
   sf::Event event;
   Level currentLevel;
+  std::string keyPressed;
 public:
   bool gameRunning;
 
@@ -35,8 +36,9 @@ public:
   // Handles game logic.
   void update()
   {
-    currentLevel.updateLevel(window);
     pollEvents();
+    currentLevel.updateLevel(window, keyPressed);
+    resetEvents();
   }
   
   // Handles whats shown on screen.
@@ -58,9 +60,19 @@ public:
         window.close();
         gameRunning = false;
         break;
+      case sf::Event::KeyPressed:
+        if (event.key.code == sf::Keyboard::Space) {
+          keyPressed = "space";
+        }
       default:
         break;
       }
     }
+  }
+
+  // We pass the current event down to the other objects as
+  // a string which means we need to clear it after the action has occured.
+  void resetEvents() {
+    keyPressed = "";
   }
 };

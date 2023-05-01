@@ -8,12 +8,14 @@ private:
   std::vector<sf::Rect<int>> frames;
   std::string texturePath;
   sf::Clock animationClock;
+  float velocityY = 0;
+  float gravity = 0.25;
 
 public:
   sf::Sprite playerSprite;
   sf::Vector2f currentPosition;
-  int currentFrame;
-  bool framesAscending;
+  int currentFrame = 0;
+  bool framesAscending = true;
 
   int initPlayer(std::vector<sf::Rect<int>> newFrames, std::string newTexturePath)
   {
@@ -28,17 +30,36 @@ public:
 
     // Sets starting frame
     playerSprite.setTextureRect(frames[0]);
-    currentFrame = 0;
-    framesAscending = true;
     playerSprite.setScale(sf::Vector2f(0.125f, 0.125f));
-    playerSprite.setPosition(sf::Vector2f(320.f, 845.f));
+    playerSprite.setPosition(sf::Vector2f(320.f, 847.f));
   }
 
-  void updatePosition(sf::RenderWindow &window)
+  void updatePosition(sf::Sprite &floor)
   {
     currentPosition = playerSprite.getPosition();
+    // Adds gravity if player is not touching the floor
+    if (!playerSprite.getGlobalBounds().intersects(floor.getGlobalBounds()))
+    {
+      velocityY += gravity;
+    }
+    else if (velocityY > 0)
+    {
+      // Stops player continuing to move through the floor.
+      velocityY = 0;
+    }
+    currentPosition.y += velocityY;
+    playerSprite.setPosition(sf::Vector2f(currentPosition.x, currentPosition.y));
   }
 
+  void handleInput(std::string keyPressed)
+  {
+    if (keyPressed == "space")
+    {
+      jump();
+    }
+  }
+
+  // Controls player animations.
   void animate()
   {
     if (animationClock.getElapsedTime() > sf::milliseconds(62.5))
@@ -67,5 +88,6 @@ public:
 
   void jump()
   {
+    velocityY = -6;
   }
 };

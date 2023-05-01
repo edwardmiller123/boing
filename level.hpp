@@ -5,11 +5,11 @@ class Level
 private:
   sf::View view;
   sf::Vector2f viewCenter;
+  Player player;
 
 public:
   sf::Sprite background, floor, course;
   sf::Texture backgroundTexture, floorTexture, courseTexture;
-  Player player;
 
   int initLevel(std::string backgroundTexturePath, std::string playerTexturePath, std::string floorTexturePath)
   {
@@ -44,17 +44,19 @@ public:
   }
 
   // Handles game logic for the level.
-  void updateLevel(sf::RenderWindow &window)
+  void updateLevel(sf::RenderWindow &window, std::string keyPressed)
   {
-    player.updatePosition(window);
+    player.handleInput(keyPressed);
+    player.updatePosition(floor);
   }
 
   // Sets whats visible in the window.
   sf::Vector2f updateView(sf::RenderWindow &window)
   {
     window.setView(view);
+
     // Slightly offsets the player from the screen center.
-    viewCenter = sf::Vector2f(player.currentPosition.x + 200, player.currentPosition.y - 50);
+    viewCenter = sf::Vector2f(player.currentPosition.x + 200, 847 - 50);
     view.setCenter(viewCenter);
   }
 };
