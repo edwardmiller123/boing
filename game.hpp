@@ -3,6 +3,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+#include "menu.hpp"
 #include "level.hpp"
 
 class Game
@@ -10,6 +11,7 @@ class Game
 private:
   sf::RenderWindow window;
   sf::Event event;
+  Menu menu;
   Level currentLevel;
   std::string keyPressed;
 public:
@@ -38,19 +40,33 @@ public:
   void update()
   {
     pollEvents();
-    currentLevel.updateLevel(window, keyPressed);
-    resetEvents();
-    if (currentLevel.gameOver) {
-      // Close for now until menu is implemented.
-      gameRunning = false;
+    if (menu.menuOpen)
+    {
+      menu.updateMenu(window, keyPressed);
     }
+    else
+    {
+      currentLevel.updateLevel(window, keyPressed);
+      if (currentLevel.gameOver)
+      {
+        menu.menuOpen = true;
+      }
+    }
+    resetEvents();
   }
-  
+
   // Handles whats shown on screen.
   void render()
   {
     window.clear();
-    currentLevel.renderLevel(window);
+    if (menu.menuOpen)
+    {
+      menu.renderMenu();
+    }
+    else
+    {
+      currentLevel.renderLevel(window);
+    }
     window.display();
   }
 
@@ -66,8 +82,13 @@ public:
         gameRunning = false;
         break;
       case sf::Event::KeyPressed:
-        if (event.key.code == sf::Keyboard::Space) {
+        if (event.key.code == sf::Keyboard::Space)
+        {
           keyPressed = "space";
+        }
+        else if (event.key.code == sf::Keyboard::Enter)
+        {
+          keyPressed = "enter";
         }
       default:
         break;
@@ -77,7 +98,8 @@ public:
 
   // We pass the current event down to the other objects as
   // a string which means we need to clear it after the action has occured.
-  void resetEvents() {
+  void resetEvents()
+  {
     keyPressed = "";
   }
 };
