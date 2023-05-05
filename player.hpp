@@ -9,13 +9,16 @@ private:
   std::string texturePath;
   sf::Clock animationClock;
   float velocityY = 0;
-  float gravity = 0.2;
+  // Player is moving forwards by default.
+  float velocityX = 2;
+  float gravity = 0.1;
 
 public:
   sf::Sprite playerSprite;
   sf::Vector2f currentPosition;
   int currentFrame = 0;
   bool framesAscending = true;
+  bool dead = false;
 
   int initPlayer(std::vector<sf::Rect<int>> newFrames, std::string newTexturePath)
   {
@@ -47,6 +50,7 @@ public:
       // Stops player continuing to move through the floor.
       velocityY = 0;
     }
+    currentPosition.x += velocityX;
     currentPosition.y += velocityY;
     playerSprite.setPosition(sf::Vector2f(currentPosition.x, currentPosition.y));
   }
@@ -92,7 +96,15 @@ public:
     // Prevents double jumping.
     if (velocityY == 0)
     {
-      velocityY = -6;
+      velocityY = -4;
+    }
+  }
+
+  void updateState(sf::Sprite course) {
+     if (playerSprite.getGlobalBounds().intersects(course.getGlobalBounds()))
+    {
+      velocityX = 0;
+      dead = true;
     }
   }
 };

@@ -22,9 +22,9 @@ public:
     window.create(sf::VideoMode(1600, 800), "Boing!");
     window.setKeyRepeatEnabled(false);
 
-    // This will live here for now but needs to move once the menu
+    // TODO: Move level initialisation once the menu
     // has been implemented.
-    currentLevel.initLevel("assets/backgroundL1.png", "assets/boingo.png", "assets/floorL1.png", "assets/home.wav");
+    currentLevel.initLevel("assets/backgroundL1.png", "assets/boingo.png", "assets/floorL1.png", "assets/home.wav", "assets/spike_no_background.png");
   }
 
   // Runs game
@@ -40,6 +40,10 @@ public:
     pollEvents();
     currentLevel.updateLevel(window, keyPressed);
     resetEvents();
+    if (currentLevel.gameOver) {
+      // Close for now until menu is implemented.
+      gameRunning = false;
+    }
   }
   
   // Handles whats shown on screen.
