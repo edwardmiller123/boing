@@ -1,3 +1,5 @@
+#include <SFML/Audio.hpp>
+
 #include "player.hpp"
 
 class Level
@@ -6,12 +8,13 @@ private:
   sf::View view;
   sf::Vector2f viewCenter;
   Player player;
+  sf::Music music;
 
 public:
   sf::Sprite background, floor, course;
   sf::Texture backgroundTexture, floorTexture, courseTexture;
 
-  int initLevel(std::string backgroundTexturePath, std::string playerTexturePath, std::string floorTexturePath)
+  int initLevel(std::string backgroundTexturePath, std::string playerTexturePath, std::string floorTexturePath, std::string musicPath)
   {
 
     if (!backgroundTexture.loadFromFile(backgroundTexturePath))
@@ -21,6 +24,8 @@ public:
     };
     background.setTexture(backgroundTexture);
 
+    view.setSize(sf::Vector2f(750.f, 350.f));
+
     if (!floorTexture.loadFromFile(floorTexturePath))
     {
       std::cout << "Floor texture didnt load";
@@ -29,8 +34,12 @@ public:
     floor.setTexture(floorTexture);
     floor.setPosition(sf::Vector2f(0.f, 875.f));
 
+    if (!music.openFromFile(musicPath)) {
+      std::cout << "Level music didn't load correctly\n";
+      return -1;
+    }
+    music.play();
     player.initPlayer({{91, 150, 255, 243}, {479, 150, 255, 243}, {851, 150, 255, 243}, {1229, 150, 255, 243}}, playerTexturePath);
-    view.setSize(sf::Vector2f(750.f, 350.f));
   }
 
   // Handles whats displayed for the level.

@@ -9,7 +9,7 @@ private:
   std::string texturePath;
   sf::Clock animationClock;
   float velocityY = 0;
-  float gravity = 0.3;
+  float gravity = 0.2;
 
 public:
   sf::Sprite playerSprite;
@@ -62,6 +62,7 @@ public:
   // Controls player animations.
   void animate()
   {
+    // TODO: need to make this in time
     if (animationClock.getElapsedTime() > sf::milliseconds(62.5))
     {
       animationClock.restart();
