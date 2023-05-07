@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "menu.hpp"
-#include "level.hpp"
 
 class Game
 {
@@ -43,7 +42,7 @@ public:
     pollEvents();
     if (menu.menuOpen)
     {
-      menu.updateMenu(window, keyPressed);
+      menu.updateMenu(window, keyPressed, currentLevel);
       if (menu.quit)
       {
         gameRunning = false;

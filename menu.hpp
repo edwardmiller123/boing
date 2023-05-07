@@ -2,6 +2,7 @@
 #include <vector>
 
 #include <SFML/Graphics.hpp>
+#include "level.hpp"
 #include "functions.hpp"
 
 class Menu
@@ -14,6 +15,7 @@ private:
                               {"", "", "", "", ""},
                               {"", "", "", "", ""}};
   int currentOption = 0;
+  int selectedLevel = 0;
   std::string currentPage, currentOptionString;
   sf::Font titleFont, optionFont;
 
@@ -34,9 +36,9 @@ public:
     initText(menuOptions[2], optionFont, "assets/Aadhunik.ttf", "Quit", 50, sf::Color::White, sf::Vector2f(725.f, 600.f));
   }
 
-  void updateMenu(sf::RenderWindow &window, std::string keyPressed)
+  void updateMenu(sf::RenderWindow &window, std::string keyPressed, Level &level)
   {
-    handleInput(keyPressed);
+    handleInput(keyPressed, level);
     updateOptionState();
   }
 
@@ -49,7 +51,7 @@ public:
     }
   }
 
-  void handleInput(std::string keyPressed)
+  void handleInput(std::string keyPressed, Level &level)
   {
     if (keyPressed == "up")
     {
@@ -67,7 +69,7 @@ public:
     }
     else if (keyPressed == "enter")
     {
-      select();
+      selectOption(level);
     }
   }
 
@@ -84,12 +86,17 @@ public:
     }
   }
 
-  void select()
+  void selectOption(Level &level)
   {
-    // We do this as getString returns an sf::String type which 
-    // must be converted.
+    // We do this as getString() returns an sf::String type which
+    // must be converted to a useable string.
     currentOptionString = menuOptions[currentOption].getString();
-    if (currentOptionString == "Quit")
+    if (currentOptionString == "Play")
+    {
+      menuOpen = false;
+      level.initLevel(levels[selectedLevel][0], levels[selectedLevel][1], levels[selectedLevel][2], levels[selectedLevel][3], levels[selectedLevel][4]);
+    }
+    else if (currentOptionString == "Quit")
     {
       quit = true;
     }
