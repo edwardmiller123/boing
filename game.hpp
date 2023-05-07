@@ -14,6 +14,7 @@ private:
   Menu menu;
   Level currentLevel;
   std::string keyPressed;
+
 public:
   bool gameRunning;
 
@@ -43,6 +44,10 @@ public:
     if (menu.menuOpen)
     {
       menu.updateMenu(window, keyPressed);
+      if (menu.quit)
+      {
+        gameRunning = false;
+      }
     }
     else
     {
@@ -50,8 +55,6 @@ public:
       if (currentLevel.gameOver)
       {
         menu.menuOpen = true;
-        // Temporary until menu works
-        gameRunning = false;
       }
     }
     resetEvents();
@@ -72,6 +75,11 @@ public:
     window.display();
   }
 
+  // We record the event and pass the outcome to the appropriate
+  // handlers as a string. Passing a variable around this way may be
+  // clunky but allows the event to be cleared before the next one is recorded.
+  // This fixes problems such as the menu skipping an option due to the previous
+  // key press event not being overwritten.
   void pollEvents()
   {
     while (window.pollEvent(event))
@@ -95,6 +103,10 @@ public:
         else if (event.key.code == sf::Keyboard::Down)
         {
           keyPressed = "down";
+        }
+        else if (event.key.code == sf::Keyboard::Enter)
+        {
+          keyPressed = "enter";
         }
       default:
         break;

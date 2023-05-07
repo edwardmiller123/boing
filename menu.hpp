@@ -14,11 +14,12 @@ private:
                               {"", "", "", "", ""},
                               {"", "", "", "", ""}};
   int currentOption = 0;
-  std::string currentPage;
+  std::string currentPage, currentOptionString;
   sf::Font titleFont, optionFont;
 
 public:
   bool menuOpen = true;
+  bool quit = false;
 
   void initMenu()
   {
@@ -64,6 +65,10 @@ public:
         currentOption++;
       }
     }
+    else if (keyPressed == "enter")
+    {
+      select();
+    }
   }
 
   void updateOptionState()
@@ -76,6 +81,17 @@ public:
       {
         menuOptions[i].setOutlineThickness(0);
       }
+    }
+  }
+
+  void select()
+  {
+    // We do this as getString returns an sf::String type which 
+    // must be converted.
+    currentOptionString = menuOptions[currentOption].getString();
+    if (currentOptionString == "Quit")
+    {
+      quit = true;
     }
   }
 };
