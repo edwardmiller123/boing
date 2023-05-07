@@ -8,22 +8,28 @@ private:
   std::vector<sf::Rect<int>> frames;
   std::string texturePath;
   sf::Clock animationClock;
-  float velocityY = 0;
-  // Player is moving forwards by default.
-  float velocityX = 2;
-  float gravity = 0.1;
+  float velocityY;
+  float velocityX;
+  float gravity;
 
 public:
   sf::Sprite playerSprite;
   sf::Vector2f currentPosition;
   int currentFrame = 0;
   bool framesAscending = true;
-  bool dead = false;
+  bool dead;
 
   int initPlayer(std::vector<sf::Rect<int>> newFrames, std::string newTexturePath)
   {
     frames = newFrames;
     texturePath = newTexturePath;
+    dead = false;
+    velocityY = 0;
+    gravity = 0.1;
+
+    // Player is moving forwards by default.
+    velocityX = 2;
+    
     if (!playerTexture.loadFromFile(texturePath))
     {
       std::cout << "Player texture didn't load";

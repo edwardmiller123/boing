@@ -44,6 +44,7 @@ public:
 
   void renderMenu(sf::RenderWindow &window)
   {
+    window.setView(window.getDefaultView());
     window.draw(title);
     for (int i = 0; i < 3; i++)
     {

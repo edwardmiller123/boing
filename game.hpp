@@ -24,9 +24,6 @@ public:
     window.create(sf::VideoMode(1600, 800), "Boing!");
     window.setKeyRepeatEnabled(false);
     menu.initMenu();
-    // TODO: Move level initialisation once the menu
-    // has been implemented.
-    // currentLevel.initLevel("assets/backgroundL1.png", "assets/boingo.png", "assets/floorL1.png", "assets/home.wav", "assets/spike_no_background.png");
   }
 
   // Runs game
@@ -36,7 +33,7 @@ public:
     render();
   }
 
-  // Handles game logic.
+  // Handles either game or menu logic.
   void update()
   {
     pollEvents();
@@ -114,7 +111,7 @@ public:
   }
 
   // We pass the current event down to the other objects as
-  // a string which means we need to clear it after the action has occured.
+  // a string which means we need to clear it after the action has been triggered.
   void resetEvents()
   {
     keyPressed = "";

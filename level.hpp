@@ -13,10 +13,11 @@ private:
 public:
   sf::Sprite background, floor, course;
   sf::Texture backgroundTexture, floorTexture, courseTexture;
-  bool gameOver = false;
+  bool gameOver;
 
   int initLevel(std::string backgroundTexturePath, std::string playerTexturePath, std::string floorTexturePath, std::string musicPath, std::string courseTexturePath)
   {
+    gameOver = false;
 
     if (!backgroundTexture.loadFromFile(backgroundTexturePath))
     {
@@ -74,7 +75,7 @@ public:
     player.updateState(course);
     if (player.dead)
     {
-      gameOver = true;
+      exitLevel();
     }
   }
 
@@ -86,5 +87,10 @@ public:
     // Slightly offsets the player from the screen center.
     viewCenter = sf::Vector2f(player.currentPosition.x + 200, 847 - 50);
     view.setCenter(viewCenter);
+  }
+
+  void exitLevel() {
+    music.stop();
+    gameOver = true;
   }
 };
