@@ -23,10 +23,10 @@ public:
     gameRunning = true;
     window.create(sf::VideoMode(1600, 800), "Boing!");
     window.setKeyRepeatEnabled(false);
-
+    menu.initMenu();
     // TODO: Move level initialisation once the menu
     // has been implemented.
-    currentLevel.initLevel("assets/backgroundL1.png", "assets/boingo.png", "assets/floorL1.png", "assets/home.wav", "assets/spike_no_background.png");
+    // currentLevel.initLevel("assets/backgroundL1.png", "assets/boingo.png", "assets/floorL1.png", "assets/home.wav", "assets/spike_no_background.png");
   }
 
   // Runs game
@@ -50,6 +50,8 @@ public:
       if (currentLevel.gameOver)
       {
         menu.menuOpen = true;
+        // Temporary until menu works
+        gameRunning = false;
       }
     }
     resetEvents();
@@ -61,7 +63,7 @@ public:
     window.clear();
     if (menu.menuOpen)
     {
-      menu.renderMenu();
+      menu.renderMenu(window);
     }
     else
     {
@@ -86,9 +88,13 @@ public:
         {
           keyPressed = "space";
         }
-        else if (event.key.code == sf::Keyboard::Enter)
+        else if (event.key.code == sf::Keyboard::Up)
         {
-          keyPressed = "enter";
+          keyPressed = "up";
+        }
+        else if (event.key.code == sf::Keyboard::Down)
+        {
+          keyPressed = "down";
         }
       default:
         break;
