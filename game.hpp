@@ -88,21 +88,20 @@ public:
         gameRunning = false;
         break;
       case sf::Event::KeyPressed:
-        if (event.key.code == sf::Keyboard::Space)
+        switch (event.key.code)
         {
+        case sf::Keyboard::Space:
           keyPressed = "space";
-        }
-        else if (event.key.code == sf::Keyboard::Up)
-        {
+          break;
+        case sf::Keyboard::Up:
           keyPressed = "up";
-        }
-        else if (event.key.code == sf::Keyboard::Down)
-        {
+          break;
+        case sf::Keyboard::Down:
           keyPressed = "down";
-        }
-        else if (event.key.code == sf::Keyboard::Enter)
-        {
+          break;
+        case sf::Keyboard::Enter:
           keyPressed = "enter";
+          break;
         }
       default:
         break;
