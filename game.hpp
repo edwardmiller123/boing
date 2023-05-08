@@ -102,8 +102,8 @@ public:
         case sf::Keyboard::Enter:
           keyPressed = "enter";
           break;
-        case sf::Keyboard::BackSpace:
-          keyPressed = "backSpace";
+        case sf::Keyboard::Escape:
+          keyPressed = "escape";
           break;
         }
       default:

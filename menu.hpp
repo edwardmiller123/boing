@@ -76,7 +76,7 @@ public:
     {
       selectOption(level);
     }
-    else if (keyPressed == "backSpace")
+    else if (keyPressed == "escape")
     {
       currentPage = "mainMenu";
     }
