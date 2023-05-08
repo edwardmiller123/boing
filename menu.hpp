@@ -100,12 +100,16 @@ public:
     if (currentPage == "mainMenu")
     {
       menuOptions[0].setString("Play");
+      // This is the only option with a different x coordinate.
+      menuOptions[1].setPosition(sf::Vector2f(640.f, 475.f));
       menuOptions[1].setString("Select Level");
       menuOptions[2].setString("Quit");
     }
     else if (currentPage == "levelSelect")
     {
       menuOptions[0].setString("Level 1");
+      // Keeps level choice in line with others.
+      menuOptions[1].setPosition(sf::Vector2f(725.f, 475.f));
       menuOptions[1].setString("Level 2");
       menuOptions[2].setString("Level 3");
     }
