@@ -131,5 +131,10 @@ public:
     {
       quit = true;
     }
+    else if (currentPage == "levelSelect")
+    {
+      selectedLevel = currentOption;
+      currentPage = "mainMenu";
+    }
   }
 };
