@@ -1,3 +1,5 @@
+#include <vector>
+
 #include <SFML/Audio.hpp>
 
 #include "player.hpp"
@@ -15,7 +17,7 @@ public:
   sf::Texture backgroundTexture, floorTexture, courseTexture;
   bool gameOver;
 
-  int initLevel(std::string backgroundTexturePath, std::string playerTexturePath, std::string floorTexturePath, std::string musicPath, std::string courseTexturePath)
+  int initLevel(std::string backgroundTexturePath, std::string playerTexturePath, std::vector<sf::IntRect> playerFrames, std::string floorTexturePath, std::string musicPath, std::string courseTexturePath)
   {
     gameOver = false;
 
@@ -53,7 +55,8 @@ public:
       return -1;
     }
     music.play();
-    player.initPlayer({{91, 150, 255, 243}, {479, 150, 255, 243}, {851, 150, 255, 243}, {1229, 150, 255, 243}}, playerTexturePath);
+    
+    player.initPlayer(playerFrames, playerTexturePath);
   }
 
   // Handles whats displayed for the level.

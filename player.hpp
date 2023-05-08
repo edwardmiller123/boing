@@ -46,7 +46,7 @@ public:
   void updatePosition(sf::Sprite &floor)
   {
     currentPosition = playerSprite.getPosition();
-    // Adds gravity if player is not touching the floor
+    // Adds gravity if player is not touching the floor.
     if (!playerSprite.getGlobalBounds().intersects(floor.getGlobalBounds()))
     {
       velocityY += gravity;
