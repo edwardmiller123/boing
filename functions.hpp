@@ -17,7 +17,7 @@ std::vector<levelInitialiser> initLevels()
   levelInitialiser level1 = {"assets/backgroundL1.png",
                              "assets/boingo.png",
                              "assets/floorL1.png",
-                             "assets/home.wav",
+                             "assets/level1.wav",
                              "assets/spike_no_background.png",
                              {{91, 150, 255, 243}, {479, 150, 255, 243}, {851, 150, 255, 243}, {1229, 150, 255, 243}}};
 
