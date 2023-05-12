@@ -28,7 +28,8 @@ public:
     gravity = 0.1;
 
     // Player is moving forwards by default.
-    velocityX = 2;
+    // This is almost the right speed.
+    velocityX = 0.2478;
     
     if (!playerTexture.loadFromFile(texturePath))
     {
@@ -40,7 +41,7 @@ public:
     // Sets starting frame
     playerSprite.setTextureRect(frames[0]);
     playerSprite.setScale(sf::Vector2f(0.125f, 0.125f));
-    playerSprite.setPosition(sf::Vector2f(320.f, 847.f));
+    playerSprite.setPosition(sf::Vector2f(100.f, 755.f));
   }
 
   void updatePosition(sf::Sprite &floor)
