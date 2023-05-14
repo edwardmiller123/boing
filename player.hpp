@@ -108,7 +108,7 @@ public:
     // Prevents double jumping.
     if (velocityY == 0)
     {
-      velocityY = -0.3;
+      velocityY = -0.25;
     }
   }
 
