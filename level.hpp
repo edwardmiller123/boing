@@ -116,7 +116,8 @@ public:
     }
     else if (player.currentPosition.x > spikes[nextSpike].getPosition().x)
     {
-      if (nextSpike < 1)
+      // Stops us accessing an index that doesnt exist.
+      if (nextSpike < spikes.size() - 1)
       {
         nextSpike++;
       }
