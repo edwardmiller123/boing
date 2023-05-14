@@ -11,6 +11,7 @@ private:
   float velocityY;
   float velocityX;
   float gravity;
+  sf::FloatRect hitBox; 
 
 public:
   sf::Sprite playerSprite;
@@ -30,7 +31,7 @@ public:
     // Player is moving forwards by default.
     // This is almost the right speed.
     velocityX = 0.2478;
-    
+
     if (!playerTexture.loadFromFile(texturePath))
     {
       std::cout << "Player texture didn't load";
@@ -42,6 +43,10 @@ public:
     playerSprite.setTextureRect(frames[0]);
     playerSprite.setScale(sf::Vector2f(0.125f, 0.125f));
     playerSprite.setPosition(sf::Vector2f(100.f, 755.f));
+    
+    // Add a collsion detection box that is smaller than the player to make
+    // the game seem less unfair.
+    hitBox = {playerSprite.getPosition().x, playerSprite.getPosition().y, 2, 2};
   }
 
   void updatePosition(sf::Sprite &floor)
@@ -107,8 +112,11 @@ public:
     }
   }
 
-  void updateState(sf::Sprite course) {
-     if (playerSprite.getGlobalBounds().intersects(course.getGlobalBounds()))
+  void updateState(sf::Sprite course)
+  {
+    hitBox.left = playerSprite.getPosition().x;
+    hitBox.top = playerSprite.getPosition().y;
+    if (hitBox.intersects(course.getGlobalBounds()))
     {
       velocityX = 0;
       dead = true;
