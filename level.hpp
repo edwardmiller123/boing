@@ -48,8 +48,8 @@ public:
       return 0;
     };
     course.setTexture(courseTexture);
-    course.setPosition(sf::Vector2f(300.f, 536.f));
-    course.setScale(0.01, 0.01);
+    course.setPosition(sf::Vector2f(200.f, 536.f));
+    course.setScale(0.03, 0.03);
 
     if (!music.openFromFile(musicPath))
     {
