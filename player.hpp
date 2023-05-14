@@ -26,11 +26,11 @@ public:
     texturePath = newTexturePath;
     dead = false;
     velocityY = 0;
-    gravity = 0.1;
+    gravity = 0.02;
 
     // Player is moving forwards by default.
-    // This is almost the right speed.
-    velocityX = 0.2478;
+    // 0.2478 is almost the right speed however may ditch this.
+    velocityX = 0.5;
 
     if (!playerTexture.loadFromFile(texturePath))
     {
@@ -46,7 +46,7 @@ public:
     
     // Add a collsion detection box that is smaller than the player to make
     // the game seem less unfair.
-    hitBox = {playerSprite.getPosition().x, playerSprite.getPosition().y, 2, 2};
+    hitBox = {playerSprite.getPosition().x, playerSprite.getPosition().y, 1, 1};
   }
 
   void updatePosition(sf::Sprite &floor)
@@ -108,7 +108,7 @@ public:
     // Prevents double jumping.
     if (velocityY == 0)
     {
-      velocityY = -4;
+      velocityY = -2;
     }
   }
 
