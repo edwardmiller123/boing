@@ -42,7 +42,7 @@ public:
     // Sets starting frame 
     playerSprite.setTextureRect(frames[0]);
     playerSprite.setScale(sf::Vector2f(0.01f, 0.01f));
-    playerSprite.setPosition(sf::Vector2f(50.f, 530.f));
+    playerSprite.setPosition(sf::Vector2f(50.f, 535.f));
     
     // Add a collsion detection box that is smaller than the player to make
     // the game seem less unfair.
@@ -112,12 +112,12 @@ public:
     }
   }
 
-  void updateState(sf::Sprite course)
+  void updateState(sf::Sprite spike)
   {
     std::cout << currentPosition.x << "\n";
     hitBox.left = currentPosition.x;
     hitBox.top = currentPosition.y;
-    if (hitBox.intersects(course.getGlobalBounds()))
+    if (hitBox.intersects(spike.getGlobalBounds()))
     {
       velocityX = 0;
       dead = true;

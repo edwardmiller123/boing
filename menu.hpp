@@ -125,7 +125,8 @@ public:
       menuOpen = false;
       level.initLevel(levels[selectedLevel].backgroundTexturePath, levels[selectedLevel].playerTexturePath,
                       levels[selectedLevel].playerFrames, levels[selectedLevel].floorTexturePath,
-                      levels[selectedLevel].musicPath, levels[selectedLevel].courseTexturePath);
+                      levels[selectedLevel].musicPath, levels[selectedLevel].courseTexturePath,
+                      levels[selectedLevel].spikePositions);
     }
     else if (currentOptionString == "Select Level")
     {

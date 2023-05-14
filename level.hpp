@@ -11,13 +11,17 @@ private:
   sf::Vector2f viewCenter;
   Player player;
   sf::Music music;
+  sf::Sprite background, floor;
+  sf::Texture backgroundTexture, floorTexture, spikeTexture;
+  std::vector<sf::Sprite> spikes;
+  int nextSpike;
 
 public:
-  sf::Sprite background, floor, course;
-  sf::Texture backgroundTexture, floorTexture, courseTexture;
   bool gameOver;
 
-  int initLevel(std::string backgroundTexturePath, std::string playerTexturePath, std::vector<sf::IntRect> playerFrames, std::string floorTexturePath, std::string musicPath, std::string courseTexturePath)
+  int initLevel(std::string backgroundTexturePath, std::string playerTexturePath, std::vector<sf::IntRect> playerFrames,
+                std::string floorTexturePath, std::string musicPath, std::string spikeTexturePath,
+                std::vector<std::vector<float>> spikePositions)
   {
     gameOver = false;
 
@@ -28,8 +32,8 @@ public:
     };
     background.setTexture(backgroundTexture);
 
-    // Note: 750, 350 is the correct size for the game.
-    // Scale factor of height to width is 2.143
+    // Scale factor of height to width is 2.143.
+    // 64.29, 30.f
     view.setSize(sf::Vector2f(64.29, 30.f));
 
     if (!floorTexture.loadFromFile(floorTexturePath))
@@ -40,16 +44,22 @@ public:
     floor.setTexture(floorTexture);
     floor.setPosition(sf::Vector2f(0.f, 540.f));
 
-    // TODO: Provide correct starting position once course
-    // is drawn.
-    if (!courseTexture.loadFromFile(courseTexturePath))
+    // We initialise all the spikes for the level.
+    if (!spikeTexture.loadFromFile(spikeTexturePath))
     {
-      std::cout << "Course texture didnt load";
+      std::cout << "Spike texture didnt load";
       return 0;
     };
-    course.setTexture(courseTexture);
-    course.setPosition(sf::Vector2f(200.f, 536.f));
-    course.setScale(0.03, 0.03);
+
+    sf::Sprite spike;
+    for (int j = 0; j < spikePositions.size(); j++)
+    {
+      spike.setTexture(spikeTexture);
+      spike.setPosition(sf::Vector2f(spikePositions[j][0], spikePositions[j][1]));
+      spike.setScale(0.008, 0.008);
+      spikes.push_back(spike);
+    }
+    nextSpike = 0;
 
     if (!music.openFromFile(musicPath))
     {
@@ -57,7 +67,7 @@ public:
       return -1;
     }
     music.play();
-    
+
     player.initPlayer(playerFrames, playerTexturePath);
   }
 
@@ -67,7 +77,12 @@ public:
     updateView(window);
     window.draw(background);
     window.draw(floor);
-    window.draw(course);
+    // This works for the moment but may not be viable with
+    // alot of spikes.
+    for (int n = 0; n < spikes.size(); n++)
+    {
+      window.draw(spikes[n]);
+    }
     player.animate();
     window.draw(player.playerSprite);
   }
@@ -77,11 +92,8 @@ public:
   {
     player.handleInput(keyPressed);
     player.updatePosition(floor);
-    player.updateState(course);
-    if (player.dead)
-    {
-      exitLevel();
-    }
+    player.updateState(spikes[nextSpike]);
+    updateLevelState();
   }
 
   // Sets whats visible in the window.
@@ -95,7 +107,24 @@ public:
     view.setCenter(viewCenter);
   }
 
-  void exitLevel() {
+  // Checks whether the level should continue.
+  void updateLevelState()
+  {
+    if (player.dead)
+    {
+      exitLevel();
+    }
+    else if (player.currentPosition.x > spikes[nextSpike].getPosition().x)
+    {
+      if (nextSpike < 1)
+      {
+        nextSpike++;
+      }
+    }
+  }
+
+  void exitLevel()
+  {
     music.stop();
     gameOver = true;
   }
