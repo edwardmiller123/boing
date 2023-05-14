@@ -125,7 +125,9 @@ public:
     {
       exitLevel();
     }
-    else if (player.currentPosition.x > spikes[nextSpike].getPosition().x)
+    // We +3 here to stop the previous spike being marked as safe once we have passed
+    // it's centre.  
+    else if (player.currentPosition.x > (spikes[nextSpike].getPosition().x + 3))
     {
       // Stops us accessing an index that doesnt exist.
       if (nextSpike < spikes.size() - 1)
