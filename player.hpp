@@ -26,11 +26,11 @@ public:
     texturePath = newTexturePath;
     dead = false;
     velocityY = 0;
-    gravity = 0.02;
+    gravity = 0.005;
 
     // Player is moving forwards by default.
     // 0.2478 is almost the right speed however may ditch this.
-    velocityX = 0.5;
+    velocityX = 0.1;
 
     if (!playerTexture.loadFromFile(texturePath))
     {
@@ -39,14 +39,14 @@ public:
     };
     playerSprite.setTexture(playerTexture);
 
-    // Sets starting frame
+    // Sets starting frame 
     playerSprite.setTextureRect(frames[0]);
-    playerSprite.setScale(sf::Vector2f(0.125f, 0.125f));
-    playerSprite.setPosition(sf::Vector2f(100.f, 755.f));
+    playerSprite.setScale(sf::Vector2f(0.01f, 0.01f));
+    playerSprite.setPosition(sf::Vector2f(50.f, 530.f));
     
     // Add a collsion detection box that is smaller than the player to make
     // the game seem less unfair.
-    hitBox = {playerSprite.getPosition().x, playerSprite.getPosition().y, 1, 1};
+    hitBox = {playerSprite.getPosition().x, playerSprite.getPosition().y, 0.05, 0.05};
   }
 
   void updatePosition(sf::Sprite &floor)
@@ -108,14 +108,15 @@ public:
     // Prevents double jumping.
     if (velocityY == 0)
     {
-      velocityY = -2;
+      velocityY = -0.3;
     }
   }
 
   void updateState(sf::Sprite course)
   {
-    hitBox.left = playerSprite.getPosition().x;
-    hitBox.top = playerSprite.getPosition().y;
+    std::cout << currentPosition.x << "\n";
+    hitBox.left = currentPosition.x;
+    hitBox.top = currentPosition.y;
     if (hitBox.intersects(course.getGlobalBounds()))
     {
       velocityX = 0;

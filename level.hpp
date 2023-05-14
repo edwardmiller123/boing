@@ -29,7 +29,8 @@ public:
     background.setTexture(backgroundTexture);
 
     // Note: 750, 350 is the correct size for the game.
-    view.setSize(sf::Vector2f(750.f, 350.f));
+    // Scale factor of height to width is 2.143
+    view.setSize(sf::Vector2f(64.29, 30.f));
 
     if (!floorTexture.loadFromFile(floorTexturePath))
     {
@@ -37,7 +38,7 @@ public:
       return 0;
     };
     floor.setTexture(floorTexture);
-    floor.setPosition(sf::Vector2f(0.f, 785.f));
+    floor.setPosition(sf::Vector2f(0.f, 540.f));
 
     // TODO: Provide correct starting position once course
     // is drawn.
@@ -47,8 +48,8 @@ public:
       return 0;
     };
     course.setTexture(courseTexture);
-    course.setPosition(sf::Vector2f(2000.f, 755.f));
-    course.setScale(0.08, 0.08);
+    course.setPosition(sf::Vector2f(300.f, 536.f));
+    course.setScale(0.01, 0.01);
 
     if (!music.openFromFile(musicPath))
     {
@@ -90,7 +91,7 @@ public:
 
     // Slightly offsets the player from the screen center.
     // Note: 700 is a good y value.
-    viewCenter = sf::Vector2f(player.currentPosition.x + 200, 700);
+    viewCenter = sf::Vector2f(player.currentPosition.x + 20, 530);
     view.setCenter(viewCenter);
   }
 
