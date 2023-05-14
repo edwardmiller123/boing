@@ -102,7 +102,6 @@ public:
     // TODO: Replace with pause menu eventually.
     if (keyPressed == "escape")
     {
-      std::cout << "escape\n";
       exitLevel();
     }
   }
