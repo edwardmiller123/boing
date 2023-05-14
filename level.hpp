@@ -90,10 +90,21 @@ public:
   // Handles game logic for the level.
   void updateLevel(sf::RenderWindow &window, std::string keyPressed)
   {
-    player.handleInput(keyPressed);
+    handleInput(keyPressed);
     player.updatePosition(floor);
     player.updateState(spikes[nextSpike]);
     updateLevelState();
+  }
+
+  void handleInput(std::string keyPressed)
+  {
+    player.handleInput(keyPressed);
+    // TODO: Replace with pause menu eventually.
+    if (keyPressed == "escape")
+    {
+      std::cout << "escape\n";
+      exitLevel();
+    }
   }
 
   // Sets whats visible in the window.
