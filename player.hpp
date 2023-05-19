@@ -7,7 +7,7 @@ private:
   sf::Texture playerTexture;
   std::vector<sf::Rect<int>> frames;
   std::string texturePath;
-  sf::Clock animationClock;
+  sf::Clock animationClock, movementClock;
   float velocityY;
   float velocityX;
   float gravity;
@@ -51,7 +51,6 @@ public:
 
   void updatePosition(sf::Sprite &floor)
   {
-    // TODO: movement speed shouldnt be affected by framerate.
     currentPosition = playerSprite.getPosition();
     // Adds gravity if player is not touching the floor.
     if (!playerSprite.getGlobalBounds().intersects(floor.getGlobalBounds()))
@@ -63,7 +62,12 @@ public:
       // Stops player continuing to move through the floor.
       velocityY = 0;
     }
-    currentPosition.x += velocityX;
+    // Stops player speed being tied to frame rate.
+    if (movementClock.getElapsedTime() > sf::milliseconds(2))
+    {
+      currentPosition.x += velocityX;
+      movementClock.restart();
+    }
     currentPosition.y += velocityY;
     playerSprite.setPosition(sf::Vector2f(currentPosition.x, currentPosition.y));
   }
