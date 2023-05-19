@@ -56,7 +56,7 @@ public:
     {
       spike.setTexture(spikeTexture);
       spike.setPosition(sf::Vector2f(spikePositions[j][0], spikePositions[j][1]));
-      spike.setScale(0.008, 0.008);
+      spike.setScale(0.006, 0.006);
       spikes.push_back(spike);
     }
     nextSpike = 0;
