@@ -92,7 +92,7 @@ public:
   {
     handleInput(keyPressed);
     player.updatePosition(floor);
-    player.updateState(spikes[nextSpike]);
+    player.updateState(spikes[nextSpike], keyPressed);
     updateLevelState();
   }
 

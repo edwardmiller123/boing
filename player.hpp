@@ -11,7 +11,7 @@ private:
   float velocityY;
   float velocityX;
   float gravity;
-  sf::FloatRect hitBox; 
+  sf::FloatRect hitBox;
 
 public:
   sf::Sprite playerSprite;
@@ -39,11 +39,11 @@ public:
     };
     playerSprite.setTexture(playerTexture);
 
-    // Sets starting frame 
+    // Sets starting frame
     playerSprite.setTextureRect(frames[0]);
     playerSprite.setScale(sf::Vector2f(0.01f, 0.01f));
     playerSprite.setPosition(sf::Vector2f(50.f, 535.f));
-    
+
     // Add a collsion detection box that is smaller than the player to make
     // the game seem less unfair.
     hitBox = {playerSprite.getPosition().x, playerSprite.getPosition().y, 0.05, 0.05};
@@ -51,6 +51,7 @@ public:
 
   void updatePosition(sf::Sprite &floor)
   {
+    // TODO: movement speed shouldnt be affected by framerate.
     currentPosition = playerSprite.getPosition();
     // Adds gravity if player is not touching the floor.
     if (!playerSprite.getGlobalBounds().intersects(floor.getGlobalBounds()))
@@ -109,12 +110,22 @@ public:
     if (velocityY == 0)
     {
       velocityY = -0.25;
+      std::cout << "JUMP\n";
     }
   }
 
-  void updateState(sf::Sprite spike)
+  void updateState(sf::Sprite spike, std::string keyPressed)
   {
-    std::cout << currentPosition.x << "\n";
+    // TODO: remove this later. This is just for debugging
+    if (keyPressed == "space")
+    {
+      std::cout << "JUMP\n";
+    }
+    else
+    {
+      std::cout << currentPosition.x << "\n";
+    }
+
     hitBox.left = currentPosition.x;
     hitBox.top = currentPosition.y;
     if (hitBox.intersects(spike.getGlobalBounds()))
