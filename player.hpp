@@ -26,7 +26,7 @@ public:
     texturePath = newTexturePath;
     dead = false;
     velocityY = 0;
-    gravity = 0.005;
+    gravity = 0.0047;
 
     // Player is moving forwards by default.
     // 0.2478 is almost the right speed however may ditch this.
