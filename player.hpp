@@ -26,9 +26,9 @@ public:
     texturePath = newTexturePath;
     dead = false;
     velocityY = 0;
-    gravity = 0.0039;
+    gravity = 0.011;
 
-    velocityX = 0.1;
+    velocityX = 0.12;
 
     if (!playerTexture.loadFromFile(texturePath))
     {
@@ -111,13 +111,20 @@ public:
     // Prevents double jumping.
     if (velocityY == 0)
     {
-      velocityY = -0.25;
+      velocityY = -0.35;
     }
   }
 
   void updateState(sf::Sprite spike, std::string keyPressed)
   {
-
+    if (keyPressed != "space")
+    {
+      std::cout << currentPosition.x << "\n";
+    }
+    else
+    {
+      std::cout << "JUMP\n";
+    }
     hitBox.left = currentPosition.x;
     hitBox.top = currentPosition.y;
     if (hitBox.intersects(spike.getGlobalBounds()))
