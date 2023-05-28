@@ -134,15 +134,18 @@ public:
   // Only draw the spikes in the vicinity of the player to improve perfomance.
   void drawSpikes(sf::RenderWindow &window)
   {
-    int j = 0;
-    int k = nextSpike + 8;
-    if (nextSpike > 5)
+    if (spikes.size() > 0)
     {
-      j = nextSpike - 4;
-    }
-    for (int n = j; n < k; n++)
-    {
-      window.draw(spikes[n]);
+      int j = 0;
+      int k = nextSpike + 8;
+      if (nextSpike > 5)
+      {
+        j = nextSpike - 4;
+      }
+      for (int n = j; n < k; n++)
+      {
+        window.draw(spikes[n]);
+      }
     }
   }
 

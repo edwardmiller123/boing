@@ -72,7 +72,7 @@ public:
 
   void handleInput(std::string keyPressed)
   {
-    if (keyPressed == "space")
+    if (keyPressed == "space" || keyPressed == "up")
     {
       jump();
     }

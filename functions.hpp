@@ -40,7 +40,7 @@ std::vector<std::vector<float>> readSpikePositions(std::string filePath)
 std::vector<levelInitialiser> initLevels()
 {
   std::vector<std::vector<float>> level1SpikePositions, level2SpikePositions, level3SpikePositions;
-  level1SpikePositions = readSpikePositions("spareAssets/output_filtered.txt");
+  level1SpikePositions = readSpikePositions("assets/level1_spike_positions.txt");
 
   levelInitialiser level1 = {"assets/level1_background.png",
                              "assets/boingo.png",
