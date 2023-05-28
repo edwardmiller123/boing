@@ -1,7 +1,7 @@
 #include <vector>
 
 #include <SFML/Audio.hpp>
-
+#include "functions.hpp"
 #include "player.hpp"
 
 class Level
@@ -11,19 +11,23 @@ private:
   sf::Vector2f viewCenter;
   Player player;
   sf::Music music;
-  sf::Sprite background, floor;
-  sf::Texture backgroundTexture, floorTexture, spikeTexture;
+  sf::Sprite background, floor, finishFlag;
+  sf::Texture backgroundTexture, floorTexture, spikeTexture, finishFlagTexture;
   std::vector<sf::Sprite> spikes;
   int nextSpike;
+  sf::Text victoryText;
+  sf::Font victoryFont;
+  sf::Clock victoryScreenClock;
 
 public:
-  bool gameOver;
+  bool gameOver, levelComplete;
 
   int initLevel(std::string backgroundTexturePath, std::string playerTexturePath, std::vector<sf::IntRect> playerFrames,
                 std::string floorTexturePath, std::string musicPath, std::string spikeTexturePath,
                 std::vector<std::vector<float>> spikePositions)
   {
     gameOver = false;
+    levelComplete = false;
 
     if (!backgroundTexture.loadFromFile(backgroundTexturePath))
     {
@@ -61,6 +65,19 @@ public:
     }
     nextSpike = 0;
 
+    // Can reuse flag for all levels so we hard code the texture path.
+    if (!finishFlagTexture.loadFromFile("assets/finish_flag.png"))
+    {
+      std::cout << "Finish Flag texture didnt load";
+      return 0;
+    };
+    finishFlag.setTexture(finishFlagTexture);
+    finishFlag.setPosition(sf::Vector2f(6000.f, 531.5));
+    finishFlag.setScale(0.025, 0.025);
+
+    initText(victoryText, victoryFont, "assets/Aadhunik.ttf", "Level Complete!", 80, sf::Color::White,
+             sf::Vector2f(530.f, 360.f));
+
     if (!music.openFromFile(musicPath))
     {
       std::cout << "Level music didn't load correctly\n";
@@ -75,11 +92,19 @@ public:
   void renderLevel(sf::RenderWindow &window)
   {
     updateView(window);
-    window.draw(background);
-    window.draw(floor);
-    drawSpikes(window);
-    player.animate();
-    window.draw(player.playerSprite);
+    if (levelComplete)
+    {
+      window.draw(victoryText);
+    }
+    else
+    {
+      window.draw(background);
+      window.draw(floor);
+      window.draw(finishFlag);
+      drawSpikes(window);
+      player.animate();
+      window.draw(player.playerSprite);
+    }
   }
 
   // Handles game logic for the level.
@@ -104,12 +129,19 @@ public:
   // Sets whats visible in the window.
   sf::Vector2f updateView(sf::RenderWindow &window)
   {
-    window.setView(view);
+    if (levelComplete)
+    {
+      window.setView(window.getDefaultView());
+    }
+    else
+    {
+      window.setView(view);
 
-    // Slightly offsets the player from the screen center.
-    // Note: 700 is a good y value.
-    viewCenter = sf::Vector2f(player.currentPosition.x + 20, 530);
-    view.setCenter(viewCenter);
+      // Slightly offsets the player from the screen center.
+      // Note: 700 is a good y value.
+      viewCenter = sf::Vector2f(player.currentPosition.x + 20, 530);
+      view.setCenter(viewCenter);
+    }
   }
 
   // Checks whether the level should continue.
@@ -129,6 +161,21 @@ public:
         nextSpike++;
       }
     }
+    if (player.playerSprite.getGlobalBounds().intersects(finishFlag.getGlobalBounds()))
+    {
+      levelComplete = true;
+      player.hasWon = true;
+      // A little janky but we check the elapsed time twice so we can reset it before showing the victory screen since it
+      // has been running for the whole game.
+      if (victoryScreenClock.getElapsedTime() > sf::seconds(30))
+      {
+        victoryScreenClock.restart();
+      }
+      if (victoryScreenClock.getElapsedTime() > sf::seconds(3) && victoryScreenClock.getElapsedTime() < sf::seconds(4))
+      {
+        exitLevel();
+      }
+    }
   }
 
   // Only draw the spikes in the vicinity of the player to improve perfomance.
@@ -137,10 +184,10 @@ public:
     if (spikes.size() > 0)
     {
       int j = 0;
-      int k = nextSpike + 8;
-      if (nextSpike > 5)
+      int k = nextSpike + 6;
+      if (nextSpike > 4)
       {
-        j = nextSpike - 4;
+        j = nextSpike - 3;
       }
       for (int n = j; n < k; n++)
       {

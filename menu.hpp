@@ -3,7 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include "level.hpp"
-#include "functions.hpp"
 
 class Menu
 {

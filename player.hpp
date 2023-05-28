@@ -18,16 +18,17 @@ public:
   sf::Vector2f currentPosition;
   int currentFrame = 0;
   bool framesAscending = true;
-  bool dead;
+  bool dead, hasWon;
 
   int initPlayer(std::vector<sf::Rect<int>> newFrames, std::string newTexturePath)
   {
     frames = newFrames;
     texturePath = newTexturePath;
     dead = false;
+    hasWon = false;
     velocityY = 0;
     gravity = 0.011;
-
+    // 0.12 is a good speed
     velocityX = 0.12;
 
     if (!playerTexture.loadFromFile(texturePath))
@@ -117,20 +118,25 @@ public:
 
   void updateState(sf::Sprite spike, std::string keyPressed)
   {
-    if (keyPressed != "space")
-    {
-      std::cout << currentPosition.x << "\n";
-    }
-    else
-    {
-      std::cout << "JUMP\n";
-    }
+    // Debug code
+    // if (keyPressed != "space")
+    // {
+    //   std::cout << currentPosition.x << "\n";
+    // }
+    // else
+    // {
+    //   std::cout << "JUMP\n";
+    // }
     hitBox.left = currentPosition.x;
     hitBox.top = currentPosition.y;
     if (hitBox.intersects(spike.getGlobalBounds()))
     {
       velocityX = 0;
       dead = true;
+    }
+    if (hasWon)
+    {
+      velocityX = 0;
     }
   }
 };

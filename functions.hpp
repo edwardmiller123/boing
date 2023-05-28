@@ -28,7 +28,8 @@ std::vector<std::vector<float>> readSpikePositions(std::string filePath)
       // For the moment set the heights to be the same but may change this in future by
       // adding the heights to the file.
       lineFloat = (float)atof(line.c_str());
-      vec.push_back({lineFloat, 537.5});
+      // 537.5 is a good height
+      vec.push_back({lineFloat, 545});
     }
     file.close();
     return vec;
@@ -69,7 +70,7 @@ std::vector<levelInitialiser> initLevels()
   return levels;
 };
 
-  void initText(sf::Text & text, sf::Font & font, std::string fontPath,
+  void initText(sf::Text &text, sf::Font &font, std::string fontPath,
                 std::string textString, int textSize, sf::Color color, sf::Vector2f position)
   {
     if (!font.loadFromFile(fontPath))
