@@ -112,7 +112,6 @@ public:
     if (velocityY == 0)
     {
       velocityY = -0.25;
-      std::cout << "JUMP\n";
     }
   }
 
