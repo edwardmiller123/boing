@@ -26,7 +26,7 @@ public:
     texturePath = newTexturePath;
     dead = false;
     velocityY = 0;
-    gravity = 0.0047;
+    gravity = 0.0039;
 
     velocityX = 0.1;
 
