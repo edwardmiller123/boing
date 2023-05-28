@@ -77,12 +77,7 @@ public:
     updateView(window);
     window.draw(background);
     window.draw(floor);
-    // This works for the moment but may not be viable with
-    // alot of spikes.
-    for (int n = 0; n < spikes.size(); n++)
-    {
-      window.draw(spikes[n]);
-    }
+    drawSpikes(window);
     player.animate();
     window.draw(player.playerSprite);
   }
@@ -125,7 +120,7 @@ public:
       exitLevel();
     }
     // We +3 here to stop the previous spike being marked as safe once we have passed
-    // it's centre.  
+    // it's centre.
     else if (player.currentPosition.x > (spikes[nextSpike].getPosition().x + 3))
     {
       // Stops us accessing an index that doesnt exist.
@@ -133,6 +128,21 @@ public:
       {
         nextSpike++;
       }
+    }
+  }
+
+  // Only draw the spikes in the vicinity of the player to improve perfomance.
+  void drawSpikes(sf::RenderWindow &window)
+  {
+    int j = 0;
+    int k = nextSpike + 8;
+    if (nextSpike > 5)
+    {
+      j = nextSpike - 4;
+    }
+    for (int n = j; n < k; n++)
+    {
+      window.draw(spikes[n]);
     }
   }
 
