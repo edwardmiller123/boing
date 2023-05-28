@@ -28,8 +28,6 @@ public:
     velocityY = 0;
     gravity = 0.0047;
 
-    // Player is moving forwards by default.
-    // 0.2478 is almost the right speed however may ditch this.
     velocityX = 0.1;
 
     if (!playerTexture.loadFromFile(texturePath))
@@ -120,15 +118,6 @@ public:
 
   void updateState(sf::Sprite spike, std::string keyPressed)
   {
-    // TODO: remove this later. This is just for debugging
-    if (keyPressed == "space")
-    {
-      std::cout << "JUMP\n";
-    }
-    else
-    {
-      std::cout << currentPosition.x << "\n";
-    }
 
     hitBox.left = currentPosition.x;
     hitBox.top = currentPosition.y;
