@@ -50,6 +50,14 @@ g++ -L path\to\sfml\SFML-2.5.1\lib .\main.o -o game.exe -lmingw32 -lsfml-graphic
 
 ### Static Linking
 
+To be able to run the game out side of the directory it was built in we can compile and link to 
+the static SFML libaries in one command,
+
+```
+ g++ -DSFML_STATIC -I path\to\sfml\SFML-2.5.1\include -I path\to\nlohmann\json -L C:\Users\edwar\Documents\codeProjects\C++\libaries\SFML-2.5.1\lib main.cpp -o game.exe -lsfml-graphics-s -lsfml-window-s -lsfml-audio-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 -lfreetype -lopenal32 -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -static -static-libgcc -static-libstdc++ -mwindows
+```
+Remember that the assets folder must still be in the same directory as the .exe
+
 ## Compilation Instructions (Linux)
 
 You can then compile with:
