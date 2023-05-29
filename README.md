@@ -1,6 +1,6 @@
 # Boing
 
-A simple side scrolling game with music. You jump over the spikes..it's pretty straigt forward.
+A simple side scrolling game with music. You jump over the spikes..it's pretty straight forward.
 My second SFML project, still pretty janky but less so than the first so theres that. Thanks again to my
 fiance for helping with the drawings. She also makes [things](https://github.com/LucyRTCodes) to!
 
