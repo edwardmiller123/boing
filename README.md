@@ -60,7 +60,7 @@ Remember that the assets folder must still be in the same directory as the .exe
 
 ## Compilation Instructions (Linux)
 
-You can then compile with:
+Compiling is pretty straight forward. You can compile with,
 
 ```
 g++ -c main.cpp
