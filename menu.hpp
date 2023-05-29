@@ -7,13 +7,15 @@
 class Menu
 {
 private:
-  sf::Text title;
+  sf::Text title, distanceReachedText;
   std::vector<sf::Text> menuOptions;
   std::vector<levelInitialiser> levels;
   int currentOption = 0;
   int selectedLevel = 0;
   std::string currentPage, currentOptionString;
   sf::Font titleFont, optionFont;
+  float distanceReached;
+  nlohmann::json currentLoadedData;
 
 public:
   bool menuOpen = true;
@@ -21,6 +23,7 @@ public:
 
   void initMenu()
   {
+
     // Load title
     initText(title, titleFont, "assets/ArcadeClassic.ttf", "Boing!", 200, sf::Color::White, sf::Vector2f(475.f, 50.f));
 
@@ -30,6 +33,10 @@ public:
     initText(menuOptions[0], optionFont, "assets/Aadhunik.ttf", "Play", 50, sf::Color::White, sf::Vector2f(725.f, 350.f));
     initText(menuOptions[1], optionFont, "assets/Aadhunik.ttf", "Select Level", 50, sf::Color::White, sf::Vector2f(640.f, 475.f));
     initText(menuOptions[2], optionFont, "assets/Aadhunik.ttf", "Quit", 50, sf::Color::White, sf::Vector2f(725.f, 600.f));
+
+    // Load progress text then call refresh underneath to populate it.
+    initText(distanceReachedText, optionFont, "assets/Aadhunik.ttf", "", 20, sf::Color::White, sf::Vector2f(1250.f, 750.f));
+    refresh();
 
     // Initalisation info for the level selection.
     levels = initLevels();
@@ -53,6 +60,7 @@ public:
     {
       window.draw(menuOptions[i]);
     }
+    window.draw(distanceReachedText);
   }
 
   void handleInput(std::string keyPressed, Level &level)
@@ -140,5 +148,22 @@ public:
       selectedLevel = currentOption;
       currentPage = "mainMenu";
     }
+  }
+
+  // refreshes the menu info based on whats loaded from the saveFile.
+  void refresh()
+  {
+    load();
+    distanceReached = currentLoadedData[std::to_string(selectedLevel + 1)]["distanceReached"];
+    distanceReachedText.setString("Furthest Distance: " + std::to_string(distanceReached) + "m");
+  }
+
+  // Load any saved gamestate info to be used by the menu.
+  void load()
+  {
+    std::ifstream saveFile;
+    saveFile.open("assets/game_state.json", std::ios::in);
+    currentLoadedData = nlohmann::json::parse(saveFile);
+    saveFile.close();
   }
 };

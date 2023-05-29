@@ -50,6 +50,7 @@ public:
       currentLevel.updateLevel(window, keyPressed);
       if (currentLevel.gameOver)
       {
+        menu.refresh();
         menu.menuOpen = true;
       }
     }

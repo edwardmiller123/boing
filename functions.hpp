@@ -20,7 +20,7 @@ std::vector<std::vector<float>> readSpikePositions(std::string filePath)
   std::fstream file;
   int lineCounter;
   float lineFloat;
-  file.open(filePath, std::ios::in); 
+  file.open(filePath, std::ios::in);
   if (file.is_open())
   {
     std::string line;
@@ -50,7 +50,8 @@ std::vector<levelInitialiser> initLevels()
                              "assets/level1.wav",
                              "assets/spike_no_background.png",
                              {{91, 150, 255, 243}, {479, 150, 255, 243}, {851, 150, 255, 243}, {1229, 150, 255, 243}},
-                             level1SpikePositions, "1"};
+                             level1SpikePositions,
+                             "1"};
 
   // Initialise the other levels correctly when they arrive.
   levelInitialiser level2 = {"",
@@ -59,28 +60,30 @@ std::vector<levelInitialiser> initLevels()
                              "",
                              "",
                              {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},
-                             level2SpikePositions, "2"};
+                             level2SpikePositions,
+                             "2"};
   levelInitialiser level3 = {"",
                              "",
                              "",
                              "",
                              "",
                              {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},
-                              level3SpikePositions, "3"};
+                             level3SpikePositions,
+                             "3"};
   std::vector<levelInitialiser> levels = {level1, level2, level3};
   return levels;
 };
 
-  void initText(sf::Text &text, sf::Font &font, std::string fontPath,
-                std::string textString, int textSize, sf::Color color, sf::Vector2f position)
+void initText(sf::Text &text, sf::Font &font, std::string fontPath,
+              std::string textString, int textSize, sf::Color color, sf::Vector2f position)
+{
+  if (!font.loadFromFile(fontPath))
   {
-    if (!font.loadFromFile(fontPath))
-    {
-      std::cout << "Error loading font";
-    }
-    text.setFont(font);
-    text.setString(textString);
-    text.setCharacterSize(textSize);
-    text.setFillColor(color);
-    text.setPosition(position);
+    std::cout << "Error loading font";
   }
+  text.setFont(font);
+  text.setString(textString);
+  text.setCharacterSize(textSize);
+  text.setFillColor(color);
+  text.setPosition(position);
+}

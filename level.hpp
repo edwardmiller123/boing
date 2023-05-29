@@ -1,6 +1,9 @@
 #include <vector>
+#include <fstream>
 
+#include <nlohmann/json.hpp>
 #include <SFML/Audio.hpp>
+
 #include "functions.hpp"
 #include "player.hpp"
 
@@ -19,6 +22,8 @@ private:
   sf::Font victoryFont;
   sf::Clock victoryScreenClock;
   std::string levelNumber;
+  std::ifstream saveFile;
+  nlohmann::json currentData;
 
 public:
   bool gameOver, levelComplete;
@@ -199,6 +204,31 @@ public:
   void exitLevel()
   {
     music.stop();
+    save();
     gameOver = true;
+  }
+
+  // Save any gamestate info to disk.
+  void save()
+  {
+    load();
+    if (currentData[levelNumber]["distanceReached"] < player.currentPosition.x)
+    {
+      currentData[levelNumber]["distanceReached"] = player.currentPosition.x;
+    }
+    if (levelComplete)
+    {
+      currentData[levelNumber]["levelCompleted"] = true;
+    }
+    std::ofstream o("assets/game_state.json");
+    o << std::setw(4) << currentData << std::endl;
+  }
+
+  // Loads gamestate info from disk. Needed to be able to update info in save.
+  void load()
+  {
+    saveFile.open("assets/game_state.json", std::ios::in);
+    currentData = nlohmann::json::parse(saveFile);
+    saveFile.close();
   }
 };
