@@ -11,6 +11,7 @@ struct levelInitialiser
       floorTexturePath, musicPath, courseTexturePath;
   std::vector<sf::IntRect> playerFrames;
   std::vector<std::vector<float>> spikePositions;
+  std::string levelNumber;
 };
 
 std::vector<std::vector<float>> readSpikePositions(std::string filePath)
@@ -49,7 +50,7 @@ std::vector<levelInitialiser> initLevels()
                              "assets/level1.wav",
                              "assets/spike_no_background.png",
                              {{91, 150, 255, 243}, {479, 150, 255, 243}, {851, 150, 255, 243}, {1229, 150, 255, 243}},
-                             level1SpikePositions};
+                             level1SpikePositions, "1"};
 
   // Initialise the other levels correctly when they arrive.
   levelInitialiser level2 = {"",
@@ -58,14 +59,14 @@ std::vector<levelInitialiser> initLevels()
                              "",
                              "",
                              {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},
-                             level2SpikePositions};
+                             level2SpikePositions, "2"};
   levelInitialiser level3 = {"",
                              "",
                              "",
                              "",
                              "",
                              {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},
-                              level3SpikePositions};
+                              level3SpikePositions, "3"};
   std::vector<levelInitialiser> levels = {level1, level2, level3};
   return levels;
 };

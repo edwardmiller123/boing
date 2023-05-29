@@ -125,7 +125,7 @@ public:
       level.initLevel(levels[selectedLevel].backgroundTexturePath, levels[selectedLevel].playerTexturePath,
                       levels[selectedLevel].playerFrames, levels[selectedLevel].floorTexturePath,
                       levels[selectedLevel].musicPath, levels[selectedLevel].courseTexturePath,
-                      levels[selectedLevel].spikePositions);
+                      levels[selectedLevel].spikePositions, levels[selectedLevel].levelNumber);
     }
     else if (currentOptionString == "Select Level")
     {
