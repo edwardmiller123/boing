@@ -30,7 +30,7 @@ std::vector<std::vector<float>> readSpikePositions(std::string filePath)
       // adding the heights to the file.
       lineFloat = (float)atof(line.c_str());
       // 537.5 is a good height
-      vec.push_back({lineFloat, 545});
+      vec.push_back({lineFloat, 537.5});
     }
     file.close();
     return vec;
