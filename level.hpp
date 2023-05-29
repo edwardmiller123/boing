@@ -18,16 +18,18 @@ private:
   sf::Text victoryText;
   sf::Font victoryFont;
   sf::Clock victoryScreenClock;
+  std::string levelNumber;
 
 public:
   bool gameOver, levelComplete;
 
   int initLevel(std::string backgroundTexturePath, std::string playerTexturePath, std::vector<sf::IntRect> playerFrames,
                 std::string floorTexturePath, std::string musicPath, std::string spikeTexturePath,
-                std::vector<std::vector<float>> spikePositions)
+                std::vector<std::vector<float>> spikePositions, std::string newLevelNumber)
   {
     gameOver = false;
     levelComplete = false;
+    levelNumber = newLevelNumber;
 
     if (!backgroundTexture.loadFromFile(backgroundTexturePath))
     {
@@ -37,7 +39,6 @@ public:
     background.setTexture(backgroundTexture);
 
     // Scale factor of height to width is 2.143.
-    // 64.29, 30.f
     view.setSize(sf::Vector2f(64.29, 30.f));
 
     if (!floorTexture.loadFromFile(floorTexturePath))
@@ -75,8 +76,8 @@ public:
     finishFlag.setPosition(sf::Vector2f(6000.f, 531.5));
     finishFlag.setScale(0.025, 0.025);
 
-    initText(victoryText, victoryFont, "assets/Aadhunik.ttf", "Level Complete!", 80, sf::Color::White,
-             sf::Vector2f(530.f, 360.f));
+    initText(victoryText, victoryFont, "assets/Aadhunik.ttf", "Level " + levelNumber + " Complete!", 80, sf::Color::White,
+             sf::Vector2f(520.f, 360.f));
 
     if (!music.openFromFile(musicPath))
     {
@@ -138,7 +139,6 @@ public:
       window.setView(view);
 
       // Slightly offsets the player from the screen center.
-      // Note: 700 is a good y value.
       viewCenter = sf::Vector2f(player.currentPosition.x + 20, 530);
       view.setCenter(viewCenter);
     }
@@ -165,8 +165,8 @@ public:
     {
       levelComplete = true;
       player.hasWon = true;
-      // A little janky but we check the elapsed time twice so we can reset it before showing the victory screen since it
-      // has been running for the whole game.
+      // (I'm sure there is a better way to do this) we check the elapsed time twice so we can reset it before showing
+      // the victory screen since the clock has been running for the whole game.
       if (victoryScreenClock.getElapsedTime() > sf::seconds(30))
       {
         victoryScreenClock.restart();
