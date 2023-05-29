@@ -8,12 +8,12 @@ fiance for helping with the drawings. She also makes [things](https://github.com
 
 ### SFML
 
-*Windows
+* Windows
 For compilation using MinGW you can Download sfml and the matching compiler version
 from the [website](https://www.sfml-dev.org/download/sfml/2.5.1/). The versions _MUST_
 match 100 percent.
 
-*Linux
+* Linux
 The simplest way is to install SFML with:
 
 ```
