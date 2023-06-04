@@ -10,7 +10,7 @@ fiance for helping with the drawings. She also makes [things](https://github.com
 
 * Windows
   - For compilation using MinGW you can Download sfml and the matching compiler version
-  from the [website](https://www.sfml-dev.org/download/sfml/2.5.1/). The SFML and compiler versions _MUST_
+  from the [website](https://www.sfml-dev.org/download/sfml/2.5.1/). The SFML and compiler versions _must_
   match 100 percent.
 
 * Linux
