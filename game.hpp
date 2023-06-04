@@ -18,7 +18,7 @@ public:
   bool gameRunning;
 
   // Initialisation
-  int initGame()
+  void initGame()
   {
     gameRunning = true;
     window.create(sf::VideoMode(1600, 800), "Boing!");

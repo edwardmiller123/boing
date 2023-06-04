@@ -46,6 +46,7 @@ public:
     // Add a collsion detection box that is smaller than the player to make
     // the game seem less unfair.
     hitBox = {playerSprite.getPosition().x, playerSprite.getPosition().y, 0.05, 0.05};
+    return 1;
   }
 
   void updatePosition(sf::Sprite &floor)

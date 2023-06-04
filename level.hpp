@@ -92,6 +92,7 @@ public:
     music.play();
 
     player.initPlayer(playerFrames, playerTexturePath);
+    return 1;
   }
 
   // Handles whats displayed for the level.
@@ -133,7 +134,7 @@ public:
   }
 
   // Sets whats visible in the window.
-  sf::Vector2f updateView(sf::RenderWindow &window)
+  void updateView(sf::RenderWindow &window)
   {
     if (levelComplete)
     {

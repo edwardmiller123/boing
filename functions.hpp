@@ -33,8 +33,8 @@ std::vector<std::vector<float>> readSpikePositions(std::string filePath)
       vec.push_back({lineFloat, 537.5});
     }
     file.close();
-    return vec;
   }
+  return vec;
 }
 
 // A little clunky but we store all the level information here
