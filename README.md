@@ -4,6 +4,9 @@ A simple side scrolling game with music. You jump over the spikes..it's pretty s
 My second SFML project, still pretty janky but less so than the first so theres that. Thanks again to my
 fiance for helping with the drawings. She also makes [things](https://github.com/LucyRTCodes) to!
 
+![menu.png](https://github.com/edwardmiller123/boing/blob/master/screenshots/menu.png)
+![game.png](https://github.com/edwardmiller123/boing/blob/master/screenshots/game.png)
+
 ## Requirements
 
 ### SFML
